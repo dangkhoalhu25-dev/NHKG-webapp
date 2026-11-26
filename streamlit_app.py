@@ -1,3 +1,4 @@
+import time
 import streamlit as st
 from google import genai
 from google.genai import types
@@ -46,19 +47,34 @@ if is_verified:
         st.chat_message("user").markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
 
-        try:
-            response = client.models.generate_content(
-                model="gemini-3.8-flash",
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=system_instruction
-                )
-            )
-            reply = response.text
+        reply = None
+        last_error = None
+        with st.spinner("Trợ lý N.H.K.G đang phân tích câu hỏi..."):
+            for attempt in range(3):
+                try:
+                    response = client.models.generate_content(
+                        model="gemini-3.8-flash",
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            system_instruction=system_instruction
+                        )
+                    )
+                    reply = response.text
+                    break
+                except Exception as e:
+                    last_error = str(e)
+                    if "503" in last_error or "UNAVAILABLE" in last_error:
+                        time.sleep(2 * (attempt + 1))
+                    else:
+                        break
+
+        if reply:
             with st.chat_message("assistant"):
                 st.markdown(reply)
             st.session_state.messages.append({"role": "assistant", "content": reply})
-        except Exception as e:
-            st.error(f"Chi tiết lỗi từ Gemini API: {e}")
+        elif last_error and ("503" in last_error or "UNAVAILABLE" in last_error):
+            st.warning("⏳ Máy chủ AI của Google hiện đang quá tải tạm thời. Bạn vui lòng đợi khoảng 10–15 giây rồi gửi lại câu hỏi nhé!")
+        else:
+            st.error(f"Đã xảy ra lỗi khi kết nối AI: {last_error}")
 else:
     st.warning("🔒 Khung Chat đã bị khóa. Bạn vui lòng tích vào ô Cam kết kiểm chứng ở thanh Menu bên trái (Bước K) để mở khóa tính năng hỏi AI.")
