@@ -376,35 +376,33 @@ with st.sidebar:
 # ==========================================
 # 5. BANNER ĐỒ HỌA CHUNG
 # ==========================================
-hero_svg = """
-<svg class="hero-svg" width="124" height="88" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="6" y="82" width="128" height="10" rx="3" fill="#F59E0B" fill-opacity="0.28" stroke="#FBBF24" stroke-width="1.8"/>
-  <path d="M18 82L28 92M42 82L52 92M66 82L76 92M90 82L100 92M114 82L124 92" stroke="#FBBF24" stroke-width="1.4"/>
-  <rect x="28" y="64" width="84" height="18" rx="2" fill="#38BDF8" fill-opacity="0.22" stroke="#7DD3FC" stroke-width="2"/>
-  <rect x="54" y="20" width="32" height="44" rx="2" fill="#60A5FA" fill-opacity="0.25" stroke="#BAE6FD" stroke-width="2"/>
-  <path d="M70 4V18M70 18L63 11M70 18L77 11" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="114" cy="26" r="14" fill="#10B981" fill-opacity="0.22" stroke="#34D399" stroke-width="2"/>
-  <path d="M108 26L112.5 30.5L120.5 21.5" stroke="#6EE7B7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-"""
 
-st.markdown(
-    f"""
-    <div class="hero-banner">
-        <div>
-            <div class="hero-badge">Khoa Kỹ thuật Công trình • ĐH Lạc Hồng</div>
-            <h1 class="hero-title">TRỢ LÝ ẢO N.H.K.G – LÀM CHỦ AI TRONG ĐỒ ÁN XÂY DỰNG</h1>
-            <p class="hero-subtitle">
-                Hệ thống tự học có kiểm soát theo quy trình 4 bước: <b>Nhận diện</b> → <b>Hỏi</b> → <b>Kiểm chứng</b> → <b>Giải quyết</b>.<br>
-                Tự động lưu nhật ký câu hỏi & kho minh chứng kiểm chứng TCVN để sinh viên tra cứu và học tập cùng nhau.
-            </p>
-        </div>
-        {hero_svg}
-    </div>
-    """,
-    unsafe_allow_html=True,
+hero_svg = (
+    '<svg class="hero-svg" width="124" height="88" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<rect x="6" y="82" width="128" height="10" rx="3" fill="#F59E0B" fill-opacity="0.28" stroke="#FBBF24" stroke-width="1.8"/>'
+    '<path d="M18 82L28 92M42 82L52 92M66 82L76 92M90 82L100 92M114 82L124 92" stroke="#FBBF24" stroke-width="1.4"/>'
+    '<rect x="28" y="64" width="84" height="18" rx="2" fill="#38BDF8" fill-opacity="0.22" stroke="#7DD3FC" stroke-width="2"/>'
+    '<rect x="54" y="20" width="32" height="44" rx="2" fill="#60A5FA" fill-opacity="0.25" stroke="#BAE6FD" stroke-width="2"/>'
+    '<path d="M70 4V18M70 18L63 11M70 18L77 11" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
+    '<circle cx="114" cy="26" r="14" fill="#10B981" fill-opacity="0.22" stroke="#34D399" stroke-width="2"/>'
+    '<path d="M108 26L112.5 30.5L120.5 21.5" stroke="#6EE7B7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
+    '</svg>'
 )
 
+banner_html = (
+    '<div class="hero-banner">'
+    '<div>'
+    '<div class="hero-badge">Khoa Kỹ thuật Công trình • Trường Đại học Lạc Hồng</div>'
+    '<h1 class="hero-title">TRỢ LÝ ẢO N.H.K.G (ngành CNKT Xây dựng) – Hỗ trợ SV tư duy phản biện </h1>'
+    '<p class="hero-subtitle">'
+    'Hệ thống tự học có kiểm soát theo quy trình 4 bước: <b>Nhận diện</b> → <b>Hỏi</b> → <b>Kiểm chứng</b> → <b>Giải quyết</b>.<br>'
+    'Tự động lưu nhật ký câu hỏi &amp; kho minh chứng kiểm chứng TCVN để sinh viên tra cứu và học tập cùng nhau.'
+    '</p>'
+    '</div>'
+    f'{hero_svg}'
+    '</div>'
+)
+st.markdown(banner_html, unsafe_allow_html=True)
 # =====================================================================
 # CHẾ ĐỘ A: THƯ VIỆN HỎI - ĐÁP CỘNG ĐỒNG & NHẬT KÝ HỌC TẬP CÁ NHÂN
 # =====================================================================
@@ -539,14 +537,14 @@ for s_num, s_code, s_title, s_desc in steps_meta:
     else:
         cls, badge = "", "🔒 Đang khóa"
 
-    stepper_html += f"""
-    <div class="step-card {cls}">
-        <div class="step-tag">{s_code} • {badge}</div>
-        <div class="step-name">{s_title}</div>
-        <div class="step-desc">{s_desc}</div>
-    </div>
-    """
-stepper_html += "</div>"
+    stepper_html += (
+        f'<div class="step-card {cls}">'
+        f'<div class="step-tag">{s_code} • {badge}</div>'
+        f'<div class="step-name">{s_title}</div>'
+        f'<div class="step-desc">{s_desc}</div>'
+        f'</div>'
+    )
+stepper_html += '</div>'
 st.markdown(stepper_html, unsafe_allow_html=True)
 
 # ------------------------------------------
